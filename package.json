@@ -45,7 +45,7 @@
     "@nrwl/linter": "15.8.5",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/workspace": "15.8.5",
-    "@nxtend/firebase": "^12.1.0",
+    
     "@schematics/angular": "~15.2.0",
     "@types/jest": "^29.4.0",
     "@types/node": "16.11.7",
