@@ -20,7 +20,7 @@ export class ProductsService {
     let $productsRef = collection(this.firestore, "products");
     let $products = collectionData($productsRef, {idField: "id"}) as Observable<Product[]>;
 
-    let $categoriesRef = collection(this.firestore, "categories");
+    let $categoriesRef = collection(this.firestore, "category");
     let $categories = collectionData($categoriesRef, {idField: "id"}) as Observable<Category[]>;
 
     return combineLatest([$products, $categories]).pipe(
