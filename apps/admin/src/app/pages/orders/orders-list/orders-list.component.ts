@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order, OrdersService } from '@bluebits/orders';
+import { Product } from '@bluebits/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 interface OrderStatus {
   [key: number]: { label: string; color: string };
@@ -37,6 +38,8 @@ const ORDER_STATUS: OrderStatus = {
 })
 export class OrdersListComponent implements OnInit {
   orders: Order[] = [];
+  product: Product[] = [];
+
   orderStatus: OrderStatus = ORDER_STATUS;
   constructor(
     private ordersService: OrdersService,
@@ -52,11 +55,14 @@ export class OrdersListComponent implements OnInit {
   _getOrders() {
     this.ordersService.getOrders().subscribe((orders) => {
       this.orders = orders;
+      console.log( this.orders);
+
     });
+
   }
 
   showOrder(orderId:any) {
-    this.router.navigateByUrl(`orders/${orderId}`);
+    this.router.navigateByUrl(`order/${orderId}`);
   }
 
   deleteOrder(orderId: string) {
@@ -65,7 +71,7 @@ export class OrdersListComponent implements OnInit {
       header: 'Delete Order',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.ordersService.deleteOrder(orderId).subscribe(
+        this.ordersService.deleteOrder(orderId).then(
           () => {
             this._getOrders();
             this.messageService.add({

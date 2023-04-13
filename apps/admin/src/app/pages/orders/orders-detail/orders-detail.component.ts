@@ -71,15 +71,13 @@ export class OrdersDetailComponent implements OnInit {
 
   onStatusChange(event: any) {
     if (event && event.value !== undefined) {
-      this.orderService.updateOrder({ status: event.value }, this.order.id).subscribe(
+      this.orderService.updateOrder({ ...this.order, status: event.value }).then(
         () => {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
             detail: 'Order is updated!'
           });
-         
-         
         },
         () => {
           this.messageService.add({
@@ -88,10 +86,10 @@ export class OrdersDetailComponent implements OnInit {
             detail: 'Order is not updated!'
           });
         }
-        
       );
     }
   }
+  
   
   
   

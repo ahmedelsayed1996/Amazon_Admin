@@ -10,24 +10,22 @@
               <th pSortableColumn="totalPrice">
                 Total Price <p-sortIcon field="totalPrice"></p-sortIcon>
               </th>
-              <th pSortableColumn="dateOrdered">
-                Date Ordered <p-sortIcon field="dateOrdered"></p-sortIcon>
-              </th>
+              
               <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
               <th></th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-order>
             <tr>
-              <td>{{ order.user.name }}</td>
-              <td>{{ order.totalPrice }}</td>
-              <td>{{ order.dateOrdered | date: 'short' }}</td>
+              <td>{{ order.email }}</td>
+              <td>{{ order.totalprice }}</td>
               <td>
-                <p-tag
+                <p-tag *ngIf="order && orderStatus[order.status]"
                   [value]="orderStatus[order.status].label"
                   [severity]="orderStatus[order.status].color"
                 ></p-tag>
               </td>
+              
               <td>
                 <p-button
                   (click)="deleteOrder(order.id)"[ngStyle]="{'margin-right':'8px'}"
