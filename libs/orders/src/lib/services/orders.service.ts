@@ -1,32 +1,105 @@
+// import { Injectable } from '@angular/core';
+// import { Observable } from 'rxjs';
+// import { Order } from '../models/order';
+// import { collection, collectionData, doc, docData ,Firestore, setDoc, deleteDoc, addDoc } from '@angular/fire/firestore';
+
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class OrdersService {
+
+//   constructor(private firestore: Firestore) {}
+
+//   getOrders(): Observable<Order[]> {
+//     const $ordersRef = collection(this.firestore, "order");
+//     return collectionData($ordersRef, {idField: "id"}) as Observable<Order[]>;
+//   }
+//   // getOrders(): Observable<Order[]> {
+//   //   const $ordersRef = collection(this.firestore, "order");
+//   //   return collectionData($ordersRef, {idField: "id"}).pipe(
+//   //     catchError(error => {
+//   //       console.log('Error fetching orders:', error);
+//   //       return throwError('Failed to fetch orders. Please try again later.');
+//   //     })
+//   //   ) as Observable<Order[]>;
+//   // }
+
+//   getOrder(orderId: string): Observable<Order> {
+//     const $orderRef = doc(this.firestore, "order/" + orderId);
+//     return docData($orderRef, {idField: "id"}) as Observable<Order>;
+//   }
+
+//   createOrder(order: Order): Promise<any> {
+//     const $ordersRef = collection(this.firestore, "order");
+//     return addDoc($ordersRef, order);
+//   }
+
+//   updateOrder(order: Order): Promise<any> {
+//     const $orderRef = doc(this.firestore, "order/" + order.id);
+//     return setDoc($orderRef, order);
+//   }
+
+//   deleteOrder(orderId: string): Promise<any> {
+//     const $orderRef = doc(this.firestore, "order/" + orderId);
+//     return deleteDoc($orderRef);
+//   }
+  
+// }
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Order } from '../models/order';
+import { collection, collectionData, doc, docData, Firestore, setDoc, deleteDoc, addDoc } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private firestore: Firestore) {}
 
   getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>('http://localhost:3000/api/v1/orders');
+    const $ordersRef = collection(this.firestore, "order");
+    return collectionData($ordersRef, {idField: "id"}) as Observable<Order[]>;
   }
 
   getOrder(orderId: string): Observable<Order> {
-    return this.http.get<Order>(`${'http://localhost:3000/api/v1/orders'}/${orderId}`);
+    const $orderRef = doc(this.firestore, "order/" + orderId);
+    return docData($orderRef, {idField: "id"}) as Observable<Order>;
   }
 
-  createOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>('http://localhost:3000/api/v1/orders', order);
+  createOrder(order: Order): Promise<any> {
+    const $ordersRef = collection(this.firestore, "order");
+    return addDoc($ordersRef, order);
   }
 
-  updateOrder(orderStaus: { status: any }, orderId: any): Observable<Order> {
-    return this.http.put<Order>(`${'http://localhost:3000/api/v1/orders'}/${orderId}`, orderStaus);
+  updateOrder(order: Order): Promise<any> {
+    const $orderRef = doc(this.firestore, "order/" + order.id);
+    return setDoc($orderRef, order);
   }
 
-  deleteOrder(orderId: string): Observable<any> {
-    return this.http.delete<any>(`${'http://localhost:3000/api/v1/orders'}/${orderId}`);
+  deleteOrder(orderId: string): Promise<any> {
+    const $orderRef = doc(this.firestore, "order/" + orderId);
+    return deleteDoc($orderRef);
+  }
+
+  getOrdersCount(): Observable<number> {
+    const $ordersRef = collection(this.firestore, "order");
+    return collectionData($ordersRef, {idField: "id"}).pipe(
+      map((orders: Order[]) => orders.length)
+    );
+  }
+
+  getTotalSales(): Observable<number> {
+    const $ordersRef = collection(this.firestore, "order");
+    return collectionData($ordersRef, {idField: "id"}).pipe(
+      map((orders: Order[]) => {
+        let totalSales = 0;
+        orders.forEach(order => {
+          totalSales += order.totalPrice||0;
+        });
+        return totalSales;
+      })
+    );
   }
 }
