@@ -37,11 +37,13 @@ export class ProductsFormComponent implements OnInit {
   private _initForm() {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
+      namear: ['', Validators.required],
       brand: ['', Validators.required],
       price: ['', Validators.required],
       category: ['',Validators.required],
       countInStock: ['', Validators.required],
       description: ['', Validators.required],
+      descriptionar: ['', Validators.required],
       richDescription: [''],
       image: ['',Validators.required],
       isFeatured: [false]
@@ -115,12 +117,15 @@ export class ProductsFormComponent implements OnInit {
         this.productsService.getProduct(params?.['id']).subscribe((product) => {
           this.form.patchValue({
             name: product.name,
+            namear: product.namear,
+
             category: product.category?.id,
             brand: product.brand,
             price: product.price,
             countInStock: product.countInStock,
             isFeatured: product.isFeatured,
             description: product.description,
+            descriptionar: product.descriptionar,
             richDescription: product.richDescription,
             image: product.image || ''
           });
@@ -147,11 +152,13 @@ export class ProductsFormComponent implements OnInit {
     });
     const product: Product = {
       name: this.productForm?.['name'].value,
+      namear: this.productForm?.['namear'].value,
       brand: this.productForm?.['brand'].value,
       price: this.productForm?.['price'].value,
       category: this.productForm?.['category'].value,
       countInStock: this.productForm?.['countInStock'].value,
       description: this.productForm?.['description'].value,
+      descriptionar: this.productForm?.['descriptionar'].value,
       richDescription: this.productForm?.['richDescription'].value,
       image: this.productForm?.['image'].value||'',
       isFeatured: this.productForm?.['isFeatured'].value

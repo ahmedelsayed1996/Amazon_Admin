@@ -37,6 +37,13 @@
               >
             </div>
             <div class="p-field p-col">
+              <label for="namear">الاسم</label>
+              <input formControlName="namear" id="namear" type="text" pInputText />
+              <small *ngIf="productForm?.['namear']?.invalid && isSubmitted" class="p-error"
+                >الاسم اجباري</small
+              >
+            </div>
+            <div class="p-field p-col">
               <label for="brand">Brand</label>
               <input formControlName="brand" id="brand" type="text" pInputText />
               <small *ngIf="productForm?.['brand']?.invalid && isSubmitted" class="p-error"
@@ -92,6 +99,18 @@
               ></textarea>
               <small *ngIf="productForm?.['description']?.invalid && isSubmitted" class="p-error"
                 >Description is required</small
+              >
+            </div>
+            <div class="p-field p-col-12">
+              <label for="descriptionar">الوصف</label><br />
+              <textarea
+                pInputTextarea
+                formControlName="descriptionar"
+                [rows]="7"
+                [cols]="30"
+              ></textarea>
+              <small *ngIf="productForm?.['descriptionar']?.invalid && isSubmitted" class="p-error"
+                >الوصف إجباري</small
               >
             </div>
             <div class="p-field p-col-12">
