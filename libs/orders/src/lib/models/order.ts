@@ -3,7 +3,7 @@ import { User } from '@bluebits/users';
 
 export class Order {
   id?: string;
-  orderItems?: OrderItem;
+  orderItems?: OrderItem[]; // Make orderItems an array of OrderItem
   shippingAddress1?: string;
   shippingAddress2?: string;
   city?: string;
@@ -11,7 +11,7 @@ export class Order {
   country?: string;
   phone?: string;
   status?: number;
-  totalPrice?: number;
+  totalprice?: number;
   user?: User;
-  dateOrdered?: string;
+  email?:string;
 }
