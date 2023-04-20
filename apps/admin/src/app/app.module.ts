@@ -38,6 +38,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { environment } from '../environments/environment';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { UsersModule } from '@bluebits/users';
 
 
 const UX_MODULE = [
@@ -140,6 +141,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, { initialNavigation:'enabledBlocking' }),
+    UsersModule,
     ...UX_MODULE,
     provideFirebaseApp(()=>initializeApp(environment.firebase)),
     provideFirestore(()=>getFirestore(),),
