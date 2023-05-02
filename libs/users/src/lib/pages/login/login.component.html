@@ -1,21 +1,47 @@
-<div class="card">
-
-    <h1> Sign in</h1>
-    <div class="form">
-      
-      <div class="formGroup">
-        <input type="text" class="formControl" placeholder="Username" #userName required>
-      </div><br>
-      <div class="formGroup">
-        <input type="password" class="formControl" placeholder="Password" #userPassword required>
+<div class="login-register">
+  <div class="login-register-panel">
+    <div class="p-grid">
+      <div class="p-col-6">
+        <img src="assets/images/download.png" />
       </div>
-
-    <!-- <button (click)="authService.SignIn(userName.value, userPassword.value)">Log in</button> -->
+      <div class="p-col-6 p-p-5">
+        <h3>Welcome!</h3>
+        <h2>Login Page</h2>
+        <form [formGroup]="loginFormGroup">
+          <div class="p-grid p-mt-6">
+            <div class="p-col-12">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" formControlName="email" pInputText placeholder="Email" />
+              </div>
+              <small *ngIf="loginForm?.['email']?.invalid && isSubmitted" class="p-error"
+                ><span *ngIf="loginForm?.['email']?.errors?.['required']">email is required</span>
+                <span *ngIf="loginForm?.['email']?.errors?.['email']">email is invalid</span></small
+              >
+            </div>
+            <div class="p-col-12">
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                <input
+                  type="password"
+                  formControlName="password"
+                  pInputText
+                  placeholder="Password"
+                />
+              </div>
+              <small *ngIf="loginForm?.['password']?.invalid && isSubmitted" class="p-error"
+                >Password is required
+              </small>
+            </div>
+            <div class="p-col-12">
+              <p-button label="Submit" styleClass="full-btn" (onClick)="onSubmit()"></p-button>
+            </div>
+            <div class="p-col-12" *ngIf="isSubmitted && authError">
+              <small class="p-error">{{ authMessage }}</small>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-</div>
-
-<div class="btn">
-    <button routerLink="/register-user"> Creat a New Admain Acount</button>
-   
-  
 </div>
