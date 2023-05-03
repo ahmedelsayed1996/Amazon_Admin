@@ -65,9 +65,16 @@ const UX_MODULE = [
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: ShellComponent,
     children: [
+      
       {
+        
         path: 'dashboard',
         component: DashboardComponent
       },
