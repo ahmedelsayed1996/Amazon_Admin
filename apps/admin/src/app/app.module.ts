@@ -39,6 +39,7 @@ import { environment } from '../environments/environment';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { UsersModule } from '@bluebits/users';
+import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 
 const UX_MODULE = [
@@ -114,6 +115,9 @@ const routes: Routes = [
         path: 'order/:id',
         component: OrdersDetailComponent
       },
+      { path: '**', component: NotfoundComponent }
+
+
     ]
   }
 ];
@@ -132,6 +136,7 @@ const routes: Routes = [
     UsersFormComponent,
     OrdersListComponent,
     OrdersDetailComponent,
+    NotfoundComponent,
  
   ],
   imports: [
