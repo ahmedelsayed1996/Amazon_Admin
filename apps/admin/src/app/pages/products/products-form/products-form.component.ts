@@ -64,7 +64,7 @@ export class ProductsFormComponent implements OnInit {
           severity: 'success',
           summary: 'Success',
           detail: `Product ${product.name} is created!`,
-          
+
 
         });
         timer(2000)
@@ -83,7 +83,7 @@ export class ProductsFormComponent implements OnInit {
     );
 
   }
-  
+
   private _updateProduct(product: Product) {
     this.productsService.updateProduct(product, this.currentProductId).then(
       () => {
@@ -107,7 +107,7 @@ export class ProductsFormComponent implements OnInit {
       }
     );
   }
-  
+
 
   private _checkEditMode() {
     this.route.params.subscribe((params) => {
@@ -137,10 +137,10 @@ export class ProductsFormComponent implements OnInit {
       }
     });
   }
-  
 
 
-  
+
+
 
   onSubmit() {
     this.isSubmitted = true;
@@ -163,16 +163,18 @@ export class ProductsFormComponent implements OnInit {
       image: this.productForm?.['image'].value||'',
       isFeatured: this.productForm?.['isFeatured'].value
     };
-    
+
     if (this.editmode) {
       this._updateProduct(product);
     } else {
       this._addProduct(product);
     }
   console.log(this.isSubmitted);
-  
+
   }
-  onCancle() {}
+  onCancle() {
+    this.location.back();
+  }
 
   onImageUpload(event: any) {
     const file: File = event.target.files[0];
@@ -186,7 +188,7 @@ export class ProductsFormComponent implements OnInit {
       };
     }
   }
-  
+
 
   get productForm() {
     return this.form.controls;
