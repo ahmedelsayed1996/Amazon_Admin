@@ -38,6 +38,8 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { environment } from '../environments/environment';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { UsersModule } from '@bluebits/users';
+import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 
 const UX_MODULE = [
@@ -63,9 +65,16 @@ const UX_MODULE = [
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
     component: ShellComponent,
     children: [
+      
       {
+        
         path: 'dashboard',
         component: DashboardComponent
       },
@@ -113,6 +122,9 @@ const routes: Routes = [
         path: 'order/:id',
         component: OrdersDetailComponent
       },
+      { path: '**', component: NotfoundComponent }
+
+
     ]
   }
 ];
@@ -131,6 +143,7 @@ const routes: Routes = [
     UsersFormComponent,
     OrdersListComponent,
     OrdersDetailComponent,
+    NotfoundComponent,
  
   ],
   imports: [
@@ -140,6 +153,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, { initialNavigation:'enabledBlocking' }),
+    UsersModule,
     ...UX_MODULE,
     provideFirebaseApp(()=>initializeApp(environment.firebase)),
     provideFirestore(()=>getFirestore(),),

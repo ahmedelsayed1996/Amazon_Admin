@@ -3,7 +3,9 @@ import { Category } from './category';
 export class Product {
   id?: string;
   name?: string;
+  namear?: string;
   description?: string;
+  descriptionar?: string;
   richDescription?: string;
   image?: string;
   images?: string[];

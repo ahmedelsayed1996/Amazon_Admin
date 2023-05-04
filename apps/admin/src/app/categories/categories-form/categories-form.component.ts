@@ -29,6 +29,8 @@ export class CategoriesFormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
+      namear: ['', Validators.required],
+
       icon: ['', Validators.required],
       color: ['#fff']
     });
@@ -47,6 +49,8 @@ export class CategoriesFormComponent implements OnInit {
     const category: Category = {
       id: this.currentCategoryId,
       name: this.categoryForm?.['name'].value,
+      namear: this.categoryForm?.['namear'].value,
+
       icon: this.categoryForm?.['icon'].value,
       color: this.categoryForm?.['color'].value
     };
@@ -118,6 +122,7 @@ export class CategoriesFormComponent implements OnInit {
         this.currentCategoryId = params?.['id'];
         this.categoriesService.getCategory(params?.['id']).subscribe((category) => {
           this.categoryForm?.['name'].setValue(category.name);
+          this.categoryForm?.['namear'].setValue(category.namear);
           this.categoryForm?.['icon'].setValue(category.icon);
           this.categoryForm?.['color'].setValue(category.color);
         });

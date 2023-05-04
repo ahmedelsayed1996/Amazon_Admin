@@ -96,7 +96,7 @@ export class OrdersService {
       map((orders: Order[]) => {
         let totalSales = 0;
         orders.forEach(order => {
-          totalSales += order.totalPrice||0;
+          totalSales += order.totalprice||0;
         });
         return totalSales;
       })

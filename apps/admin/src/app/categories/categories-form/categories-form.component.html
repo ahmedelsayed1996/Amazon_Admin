@@ -37,6 +37,13 @@
               >
             </div>
             <div class="p-field p-col">
+              <label for="namear">الاسم</label>
+              <input formControlName="namear" id="namear" type="text" pInputText />
+              <small *ngIf="categoryForm?.['namear']?.invalid && isSubmitted" class="p-error"
+                >الأسم إجباري</small
+              >
+            </div>
+            <div class="p-field p-col">
               <label for="icon">Icon</label>
               <input formControlName="icon" id="icon" type="text" pInputText />
               <small *ngIf="categoryForm?.['icon']?.invalid && isSubmitted" class="p-error"
