@@ -1,6 +1,7 @@
-import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'users-login',
@@ -17,6 +18,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private router: Router
+
     
   ) {}
 
@@ -33,18 +36,27 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
-
-    if (this.loginFormGroup.invalid) return;
-
-
-      (error: HttpErrorResponse) => {
-        this.authError = true;
-        if (error.status !== 400) {
-          this.authMessage = 'Error in the Server, please try again later!';
-        }
-      }
-    
+  
+    if (this.loginFormGroup.invalid) {
+      return;
+    }
+  
+    if (this.loginFormGroup.value.email && this.loginFormGroup.value.password) {
+      // if email and password fields have values
+      this.router.navigate(['/dashboard']); // navigate to dashboard route
+    } else {
+      // email and/or password fields are empty
+      this.authError = true;
+      this.authMessage = 'Email or Password are wrong';
+    }
   }
+  
+  
+  
+  
+  
+  
+  
 
   get loginForm() {
     return this.loginFormGroup.controls;
